@@ -44,13 +44,31 @@ function handleGuess(gekozenLetter) {
     pogingen.indexOf(gekozenLetter) === -1 ? pogingen.push(gekozenLetter) : null;
     document.getElementById(gekozenLetter).setAttribute('disabled', true);
 
-    alert(antwoord);
-
     if (antwoord.indexOf(gekozenLetter) >= 0) {
         gegokteWoord();
+        checkIfGameWon();
     } else if (antwoord.indexOf(gekozenLetter) === -1) {
         fouten++;
         updateFouten();
+        checkIfGameLost();
+        updateGalgjeFoto();
+    }
+}
+
+function updateGalgjeFoto() {
+    document.getElementById("galgje").src = "./img/" + fouten + ".jpg";
+}
+
+function checkIfGameWon() {
+    if (wordStatus === antwoord) {
+        document.getElementById('keyboard').innerHTML = 'U heeft gewonnen!';
+    }
+}
+
+function checkIfGameLost() {
+    if (fouten === maxFouten) {
+        document.getElementById('wordSpotlight').innerHTML = 'De antwoord was: '  + antwoord;
+        document.getElementById('keyboard').innerHTML = 'U heeft verloren!';
     }
 }
 
@@ -62,6 +80,17 @@ function gegokteWoord() {
 
 function updateFouten() {
     document.getElementById('fouten').innerHTML = fouten;
+}
+
+function reset() {
+    fouten = 0;
+    pogingen = [];
+    document.getElementById("galgje").src ="./img/0.jpg";
+
+    eenWord();
+    gegokteWoord();
+    updateFouten();
+    knoppen();
 }
 
 document.getElementById('maxFouten').innerHTML = maxFouten;
