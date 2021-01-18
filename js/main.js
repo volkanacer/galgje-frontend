@@ -1,18 +1,18 @@
-var programming_languages  = [
-	"python",
-	"javascript",
-	"mongodb",
-	"json",
-	"java",
-	"html",
-	"css",
-	"c",
-	"csharp",
-	"golang",
-	"kotlin",
-	"php",
-	"sql",
-	"ruby"
+var steden  = [
+	"amsterdam",
+	"parijs",
+	"newyork",
+	"rome",
+	"kaapstad",
+	"istanbul",
+	"brugge",
+	"vaticaanstad",
+	"havana",
+	"tokyo",
+	"wenen",
+	"praag",
+	"wellington",
+	"melbourne"
 ]
 
 let antwoord = '';
@@ -22,7 +22,7 @@ let pogingen = [];
 let wordStatus = null;
 
 function eenWord() {
-  antwoord = programming_languages[Math.floor(Math.random() * programming_languages.length)];
+  antwoord = steden[Math.floor(Math.random() * steden.length)];
 }
 
 function knoppen() {
@@ -38,9 +38,16 @@ function knoppen() {
        `).join('');
    
      document.getElementById('keyboard').innerHTML = buttonsHTML;
-   }
+}
+
+function gegokteWoord() {
+    wordStatus = antwoord.split('').map(letter => (pogingen.indexOf(letter) >= 0 ? letter : " _ ")).join('');
+
+    document.getElementById('wordSpotlight').innerHTML = wordStatus;
+}
 
 document.getElementById('maxFouten').innerHTML = maxFouten;
 
 eenWord();
 knoppen();
+gegokteWoord();
